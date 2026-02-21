@@ -1,44 +1,29 @@
+/// A type that represents reusable HTML content.
+///
+/// Conform to `HTMLComponent` to create composable building blocks
+/// for your HTML. Use ``HTMLPage`` for full page documents.
+///
+/// ```swift
+/// struct NavBar: HTMLComponent {
+///     var content: Node {
+///         Nav {
+///             A(href: "/") { "Home" }
+///             A(href: "/about") { "About" }
+///         }
+///     }
+/// }
+/// ```
+///
+/// Components can be nested inside other components or used
+/// directly within an ``HTMLBuilder`` closure.
+///
+/// - SeeAlso: ``HTMLPage``
 public protocol HTMLComponent {
-    @HTMLBuilder var body: Node { get }
+    @HTMLBuilder var content: Node { get }
 }
 
 public extension HTMLComponent {
     func render(_ options: RenderOptions = RenderOptions()) -> String {
-        body.render(options)
-    }
-}
-
-@resultBuilder
-public struct HTMLBuilder {
-    public static func buildBlock(_ nodes: Node...) -> Node {
-        .fragment(nodes)
-    }
-
-    public static func buildExpression(_ string: String) -> Node {
-        .text(string)
-    }
-
-    public static func buildExpression(_ node: Node) -> Node {
-        node
-    }
-
-    public static func buildExpression(_ component: any HTMLComponent) -> Node {
-        component.body
-    }
-
-    public static func buildOptional(_ node: Node?) -> Node {
-        node ?? .empty
-    }
-
-    public static func buildEither(first node: Node) -> Node {
-        node
-    }
-
-    public static func buildEither(second node: Node) -> Node {
-        node
-    }
-
-    public static func buildArray(_ nodes: [Node]) -> Node {
-        .fragment(nodes)
+        content.render(options)
     }
 }
