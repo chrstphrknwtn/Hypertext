@@ -1,4 +1,12 @@
-public typealias Attributes = KeyValuePairs<String, AttributeValue>
+public struct Attribute: Sendable {
+    public let name: String
+    public let value: AttributeValue
+
+    public init(_ name: String, _ value: AttributeValue) {
+        self.name = name
+        self.value = value
+    }
+}
 
 public enum AttributeValue: Sendable, ExpressibleByStringInterpolation {
     case string(String)

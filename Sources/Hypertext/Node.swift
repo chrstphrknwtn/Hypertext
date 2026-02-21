@@ -1,9 +1,10 @@
 public enum Node: Sendable {
     case doctype
-    case element(String, Attributes, [Node])
-    case voidElement(String, Attributes)
+    case element(String, [Attribute], [Node])
+    case voidElement(String, [Attribute])
     case text(String)
     case rawHTML(String)
+    case rawText(String)
     case fragment([Node])
     case empty
 
@@ -31,22 +32,22 @@ public enum Node: Sendable {
         })
     }
 
-    private static func renderAttributes(_ attributes: Attributes) -> String {
-        let attributesString = attributes.compactMap { name, value in
+    private static func renderAttributes(_ attributes: [Attribute]) -> String {
+        let attributesString = attributes.compactMap { attribute in
             /* Warn if attribute name is likely to produce an invalid HTML element */
-            if isInvalidAttributeName(name) {
+            if isInvalidAttributeName(attribute.name) {
                 print("""
-                [HyperText Warning] Invalid attribute name '\(name)'.
+                [HyperText Warning] Invalid attribute name '\(attribute.name)'.
 
                 Attribute names must not contain spaces, quotes, '<', >', '/', '=', or control characters.
                 This attribute will be rendered as-is but may produce invalid HTML.
                 """)
             }
 
-            if let stringValue = value.stringValue {
-                return "\(name)=\"\(Node.escapeHTML(stringValue))\""
-            } else if case let .bool(value) = value, value {
-                return name
+            if let stringValue = attribute.value.stringValue {
+                return "\(attribute.name)=\"\(Node.escapeHTML(stringValue))\""
+            } else if case let .bool(value) = attribute.value, value {
+                return attribute.name
             } else {
                 return nil
             }
@@ -75,6 +76,8 @@ public extension Node {
         case let .text(content):
             return Node.escapeHTML(content)
         case let .rawHTML(content):
+            return content
+        case let .rawText(content):
             return content
         case let .fragment(nodes):
             return nodes.map { node in
