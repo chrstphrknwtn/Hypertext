@@ -8,7 +8,7 @@ public struct Attribute: Sendable {
     }
 }
 
-public enum AttributeValue: Sendable, ExpressibleByStringInterpolation {
+public enum AttributeValue: Sendable, Equatable, ExpressibleByStringInterpolation {
     case string(String)
     case int(Int)
     case bool(Bool)
