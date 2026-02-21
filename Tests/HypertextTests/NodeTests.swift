@@ -1,37 +1,40 @@
 @testable import Hypertext
 import Testing
 
+let html = HTMLRenderer()
+let xml = HTMLRenderer(.xml)
+
 enum NodeTests {
     @Suite("Text Nodes")
     struct TextNodes {
         @Test("Renders plain text")
         func rendersPlainText() {
             let node = Node.text("hello")
-            #expect(node.render() == "hello")
+            #expect(html.render(node) == "hello")
         }
 
         @Test("Escapes ampersands")
         func escapesAmpersands() {
             let node = Node.text("rock & roll")
-            #expect(node.render() == "rock &amp; roll")
+            #expect(html.render(node) == "rock &amp; roll")
         }
 
         @Test("Escapes angle brackets")
         func escapesAngleBrackets() {
             let node = Node.text("<script>alert('xss')</script>")
-            #expect(node.render() == "&lt;script&gt;alert('xss')&lt;/script&gt;")
+            #expect(html.render(node) == "&lt;script&gt;alert('xss')&lt;/script&gt;")
         }
 
         @Test("Escapes double quotes")
         func escapesDoubleQuotes() {
             let node = Node.text("say \"hello\"")
-            #expect(node.render() == "say &quot;hello&quot;")
+            #expect(html.render(node) == "say &quot;hello&quot;")
         }
 
         @Test("Escapes all special characters together")
         func escapesAllSpecialCharacters() {
             let node = Node.text("<a href=\"test&foo\">")
-            #expect(node.render() == "&lt;a href=&quot;test&amp;foo&quot;&gt;")
+            #expect(html.render(node) == "&lt;a href=&quot;test&amp;foo&quot;&gt;")
         }
     }
 
@@ -40,13 +43,13 @@ enum NodeTests {
         @Test("Renders without escaping")
         func rendersWithoutEscaping() {
             let node = Node.rawHTML("<strong>bold</strong>")
-            #expect(node.render() == "<strong>bold</strong>")
+            #expect(html.render(node) == "<strong>bold</strong>")
         }
 
         @Test("Preserves special characters")
         func preservesSpecialCharacters() {
             let node = Node.rawHTML("<a href=\"test&foo\">link</a>")
-            #expect(node.render() == "<a href=\"test&foo\">link</a>")
+            #expect(html.render(node) == "<a href=\"test&foo\">link</a>")
         }
     }
 
@@ -55,13 +58,13 @@ enum NodeTests {
         @Test("Renders with tag and content")
         func rendersBasic() {
             let node = Node.element("div", [], [.text("content")])
-            #expect(node.render() == "<div>content</div>")
+            #expect(html.render(node) == "<div>content</div>")
         }
 
         @Test("Renders with attributes")
         func rendersWithAttributes() {
             let node = Node.element("div", [.class("active")], [.text("content")])
-            #expect(node.render() == "<div class=\"active\">content</div>")
+            #expect(html.render(node) == "<div class=\"active\">content</div>")
         }
 
         @Test("Renders nested elements")
@@ -70,13 +73,13 @@ enum NodeTests {
                 .element("p", [], [.text("first")]),
                 .element("p", [], [.text("second")]),
             ])
-            #expect(node.render() == "<div><p>first</p><p>second</p></div>")
+            #expect(html.render(node) == "<div><p>first</p><p>second</p></div>")
         }
 
         @Test("Renders empty element")
         func rendersEmpty() {
             let node = Node.element("div", [], [])
-            #expect(node.render() == "<div></div>")
+            #expect(html.render(node) == "<div></div>")
         }
     }
 
@@ -85,19 +88,19 @@ enum NodeTests {
         @Test("Renders without closing tag")
         func rendersWithoutClosingTag() {
             let node = Node.voidElement("br", [])
-            #expect(node.render() == "<br>")
+            #expect(html.render(node) == "<br>")
         }
 
         @Test("Renders with attributes")
         func rendersWithAttributes() {
             let node = Node.voidElement("meta", [.init("charset", "utf-8")])
-            #expect(node.render() == "<meta charset=\"utf-8\">")
+            #expect(html.render(node) == "<meta charset=\"utf-8\">")
         }
 
         @Test("Renders self-closing in XML mode")
         func rendersSelfClosingXML() {
             let node = Node.voidElement("br", [])
-            #expect(node.render(RenderOptions(xmlSelfClosingTags: true)) == "<br />")
+            #expect(xml.render(node) == "<br />")
         }
     }
 
@@ -106,31 +109,31 @@ enum NodeTests {
         @Test("String attribute renders as key-value")
         func stringAttribute() {
             let node = Node.element("div", [.class("active")], [])
-            #expect(node.render() == "<div class=\"active\"></div>")
+            #expect(html.render(node) == "<div class=\"active\"></div>")
         }
 
         @Test("Integer attribute renders as key-value")
         func integerAttribute() {
             let node = Node.element("input", [.init("tabindex", 1)], [])
-            #expect(node.render() == "<input tabindex=\"1\"></input>")
+            #expect(html.render(node) == "<input tabindex=\"1\"></input>")
         }
 
         @Test("Boolean true renders as name only")
         func booleanTrue() {
             let node = Node.element("input", [.init("disabled", true)], [])
-            #expect(node.render() == "<input disabled></input>")
+            #expect(html.render(node) == "<input disabled></input>")
         }
 
         @Test("Boolean false omits attribute")
         func booleanFalse() {
             let node = Node.element("input", [.init("disabled", false)], [])
-            #expect(node.render() == "<input></input>")
+            #expect(html.render(node) == "<input></input>")
         }
 
         @Test("Attribute values are escaped")
         func attributeValuesEscaped() {
             let node = Node.element("div", [.init("data-value", "a&b\"c")], [])
-            #expect(node.render() == "<div data-value=\"a&amp;b&quot;c\"></div>")
+            #expect(html.render(node) == "<div data-value=\"a&amp;b&quot;c\"></div>")
         }
 
         @Test("Attribute order is preserved")
@@ -141,7 +144,7 @@ enum NodeTests {
                 .class("form-input"),
                 .init("placeholder", "Enter email"),
                 .init("required", true)])
-            #expect(node.render() == "<input type=\"text\" name=\"email\" class=\"form-input\" placeholder=\"Enter email\" required>")
+            #expect(html.render(node) == "<input type=\"text\" name=\"email\" class=\"form-input\" placeholder=\"Enter email\" required>")
         }
     }
 
@@ -150,13 +153,13 @@ enum NodeTests {
         @Test("Fragment renders all children")
         func fragmentRenders() {
             let node = Node.fragment([.text("one"), .text("two"), .text("three")])
-            #expect(node.render() == "onetwothree")
+            #expect(html.render(node) == "onetwothree")
         }
 
         @Test("Empty renders nothing")
         func emptyRenders() {
             let node = Node.empty
-            #expect(node.render() == "")
+            #expect(html.render(node) == "")
         }
 
         @Test("Fragment with mixed node types")
@@ -166,7 +169,7 @@ enum NodeTests {
                 .text(" "),
                 .element("p", [], [.text("world")]),
             ])
-            #expect(node.render() == "<p>hello</p> <p>world</p>")
+            #expect(html.render(node) == "<p>hello</p> <p>world</p>")
         }
     }
 }

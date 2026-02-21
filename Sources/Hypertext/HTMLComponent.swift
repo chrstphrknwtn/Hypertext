@@ -24,6 +24,6 @@ public protocol HTMLComponent {
 
 public extension HTMLComponent {
     func render(_ options: RenderOptions = RenderOptions()) -> String {
-        content.render(options)
+        HTMLRenderer(options).render(content)
     }
 }
