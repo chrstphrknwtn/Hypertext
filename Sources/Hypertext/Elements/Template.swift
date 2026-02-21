@@ -1,7 +1,7 @@
 /// Creates a `<template>` element.
 ///
 /// ```swift
-/// Template(.init("id", .string("row-template"))) {
+/// Template(.id("row-template")) {
 ///     Tr { Td { "Placeholder" } }
 /// }
 /// ```

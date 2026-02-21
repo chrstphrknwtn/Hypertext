@@ -2,7 +2,7 @@
 /// Creates a `<dialog>` element.
 ///
 /// ```swift
-/// Dialog(.init("open", .bool(true))) { P { "Hello!" } }
+/// Dialog(.open()) { P { "Hello!" } }
 /// ```
 /// ```html
 /// <dialog open><p>Hello!</p></dialog>
@@ -21,7 +21,7 @@ public func Dialog(_ attributes: Attribute..., @HTMLBuilder content: () -> Node)
 /// Creates a `<dialog>` element with an `open` attribute.
 ///
 /// ```swift
-/// Dialog(open: true) { P { "Hello!" } }
+/// Dialog(open: isOpen) { P { "Hello!" } }
 /// ```
 /// ```html
 /// <dialog open><p>Hello!</p></dialog>

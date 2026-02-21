@@ -1,7 +1,7 @@
 /// Creates an `<optgroup>` element.
 ///
 /// ```swift
-/// Optgroup(.init("label", .string("Oceania"))) {
+/// Optgroup(.label("Oceania")) {
 ///     Option(value: "au") { "Australia" }
 ///     Option(value: "nz") { "New Zealand" }
 /// }

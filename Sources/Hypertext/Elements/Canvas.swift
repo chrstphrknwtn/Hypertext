@@ -1,7 +1,7 @@
 /// Creates a `<canvas>` element.
 ///
 /// ```swift
-/// Canvas(.init("width", .int(300)), .init("height", .int(150))) { "Canvas not supported." }
+/// Canvas(.width(300), .height(150)) { "Canvas not supported." }
 /// ```
 /// ```html
 /// <canvas width="300" height="150">Canvas not supported.</canvas>

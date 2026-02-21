@@ -1,7 +1,7 @@
 /// Creates an `<area>` void element.
 ///
 /// ```swift
-/// Area(.init("shape", .string("rect")), .init("coords", .string("0,0,100,100")))
+/// Area(.shape("rect"), .coords("0,0,100,100"))
 /// ```
 /// ```html
 /// <area shape="rect" coords="0,0,100,100">
@@ -20,10 +20,10 @@ public func Area(_ attributes: Attribute...) -> Node {
 /// Creates an `<area>` void element with `href` and `alt` attributes.
 ///
 /// ```swift
-/// Area(href: "/about", alt: "About")
+/// Area(href: "/about", alt: "About", .shape("rect"), .coords("0,0,100,100"))
 /// ```
 /// ```html
-/// <area href="/about" alt="About">
+/// <area href="/about" alt="About" shape="rect" coords="0,0,100,100">
 /// ```
 ///
 /// - Parameters:

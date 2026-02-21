@@ -1,7 +1,7 @@
 /// Creates an `<output>` element.
 ///
 /// ```swift
-/// Output(.init("for", .string("a b"))) { "60" }
+/// Output(.for("a b")) { "60" }
 /// ```
 /// ```html
 /// <output for="a b">60</output>

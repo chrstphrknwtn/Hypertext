@@ -1,7 +1,7 @@
 /// Creates a `<source>` void element.
 ///
 /// ```swift
-/// Source(.init("src", .string("/video.webm")), .init("type", .string("video/webm")))
+/// Source(.src("/video.webm"), .type("video/webm"))
 /// ```
 /// ```html
 /// <source src="/video.webm" type="video/webm">

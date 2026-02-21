@@ -1,7 +1,7 @@
 /// Creates a `<meter>` element.
 ///
 /// ```swift
-/// Meter(.init("value", .int(75)), .init("min", .int(0)), .init("max", .int(100))) { "75%" }
+/// Meter(.value(75), .min(0), .max(100)) { "75%" }
 /// ```
 /// ```html
 /// <meter value="75" min="0" max="100">75%</meter>

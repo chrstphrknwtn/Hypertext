@@ -2,7 +2,7 @@
 ///
 /// ```swift
 /// Colgroup {
-///     Col(.init("span", .int(2)))
+///     Col(.span(2))
 /// }
 /// ```
 /// ```html

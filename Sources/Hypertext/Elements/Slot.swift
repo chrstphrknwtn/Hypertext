@@ -1,7 +1,7 @@
 /// Creates a `<slot>` element.
 ///
 /// ```swift
-/// Slot(.init("name", .string("title"))) { "Default title" }
+/// Slot(.name("title")) { "Default title" }
 /// ```
 /// ```html
 /// <slot name="title">Default title</slot>

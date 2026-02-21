@@ -1,7 +1,7 @@
 /// Creates an `<iframe>` element.
 ///
 /// ```swift
-/// Iframe(.init("src", .string("https://example.com"))) {}
+/// Iframe(.src("https://example.com")) {}
 /// ```
 /// ```html
 /// <iframe src="https://example.com"></iframe>

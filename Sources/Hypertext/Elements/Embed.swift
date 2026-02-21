@@ -1,10 +1,10 @@
 /// Creates an `<embed>` void element.
 ///
 /// ```swift
-/// Embed(.init("src", .string("/game.swf")), .init("type", .string("application/x-shockwave-flash")))
+/// Embed(.src("/diagram.svg"), .type("image/svg+xml"))
 /// ```
 /// ```html
-/// <embed src="/game.swf" type="application/x-shockwave-flash">
+/// <embed src="/diagram.svg" type="image/svg+xml">
 /// ```
 ///
 /// - Parameter attributes: The element's attributes.
@@ -20,10 +20,10 @@ public func Embed(_ attributes: Attribute...) -> Node {
 /// Creates an `<embed>` void element with `src` and `type` attributes.
 ///
 /// ```swift
-/// Embed(src: "/animation.svg", type: "image/svg+xml")
+/// Embed(src: "/diagram.svg", type: "image/svg+xml")
 /// ```
 /// ```html
-/// <embed src="/animation.svg" type="image/svg+xml">
+/// <embed src="/diagram.svg" type="image/svg+xml">
 /// ```
 ///
 /// - Parameters:

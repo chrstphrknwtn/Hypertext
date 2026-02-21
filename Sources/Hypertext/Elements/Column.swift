@@ -1,7 +1,7 @@
 /// Creates a `<col>` void element.
 ///
 /// ```swift
-/// Col(.init("span", .int(2)))
+/// Col(.span(2))
 /// ```
 /// ```html
 /// <col span="2">

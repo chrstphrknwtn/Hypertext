@@ -1,7 +1,7 @@
 /// Creates a `<progress>` element.
 ///
 /// ```swift
-/// Progress(.init("value", .int(70)), .init("max", .int(100))) { "70%" }
+/// Progress(.value(70), .max(100)) { "70%" }
 /// ```
 /// ```html
 /// <progress value="70" max="100">70%</progress>

@@ -1,7 +1,7 @@
 /// Creates a `<datalist>` element.
 ///
 /// ```swift
-/// Datalist(.init("id", .string("browsers"))) {
+/// Datalist(.id("browsers")) {
 ///     Option(value: "Firefox") { "" }
 ///     Option(value: "Safari") { "" }
 /// }

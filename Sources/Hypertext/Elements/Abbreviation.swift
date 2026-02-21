@@ -1,7 +1,7 @@
 /// Creates an `<abbr>` element.
 ///
 /// ```swift
-/// Abbr(.init("title", .string("HyperText Markup Language"))) { "HTML" }
+/// Abbr(.title("HyperText Markup Language")) { "HTML" }
 /// ```
 /// ```html
 /// <abbr title="HyperText Markup Language">HTML</abbr>

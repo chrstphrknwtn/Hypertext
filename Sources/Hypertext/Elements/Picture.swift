@@ -2,8 +2,8 @@
 ///
 /// ```swift
 /// Picture {
-///     Source(.init("srcset", .string("/photo.avif")), .init("type", .string("image/avif")))
-///     Source(.init("srcset", .string("/photo.webp")), .init("type", .string("image/webp")))
+///     Source(.srcset("/photo.avif"), .type("image/avif"))
+///     Source(.srcset("/photo.webp"), .type("image/webp"))
 ///     Img(src: "/photo.jpg", alt: "A photo")
 /// }
 /// ```

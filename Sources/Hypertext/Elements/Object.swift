@@ -1,7 +1,7 @@
 /// Creates an `<object>` element.
 ///
 /// ```swift
-/// Object(.init("data", .string("/file.pdf")), .init("type", .string("application/pdf"))) {
+/// Object(.init("data", .string("/file.pdf")), .type("application/pdf")) {
 ///     P { "Your browser does not support PDFs." }
 /// }
 /// ```
