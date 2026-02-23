@@ -29,8 +29,19 @@
 public extension Attribute {
     // MARK: - Global attributes
 
-    static func `class`(_ value: String) -> Attribute {
-        .init("class", .string(value))
+    // Class attribute accepts any number of strings or dictionary literal
+    // conditional classes.
+    static func `class`(_ values: ClassName...) -> Attribute {
+        let classes = values.flatMap { value -> [String] in
+            switch value {
+            case let .name(name): [name]
+            case let .conditionals(pairs): pairs
+                .filter { _, condition in condition }
+                .map { name, _ in name }
+            }
+        }
+
+        return .init("class", .string(classes.joined(separator: " ")))
     }
 
     static func id(_ value: String) -> Attribute {
