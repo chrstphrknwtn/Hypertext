@@ -136,12 +136,23 @@ Script(src: "/app.js", .defer(), .async())
 
 **Note: `<style>` and `<script>` content is not escaped. Never pass untrusted user input to these closures.**
 
+## Raw HTML
+
+Hypertext escapes all text content by default. When you need to pass through a raw HTML string — like an SVG, an embed snippet, or content from a markdown renderer — use `UnsafeHTML`:
+```swift
+let 
+UnsafeHTML("<script>alert('Hey!')</script>")
+// <script>alert('Hey!')</script>
+```
+
 ## Rendering
 
 Use `.render()` to return `String`:
 ```swift
 let html = HomePage().render()
 ```
+
+Hummingbird and Vapor integrations are on the way.
 
 ## License
 
