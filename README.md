@@ -6,7 +6,7 @@ If you know HTML, you know Hypertext.
 
 ## Goals
 - Simple API for effortless HTML authoring
-- Great documetation
+- Great documentation
 - Long-term API stability
 - Zero dependencies
 
@@ -140,14 +140,13 @@ Script(src: "/app.js", .defer(), .async())
 
 Hypertext escapes all text content by default. When you need to pass through a raw HTML string — like an SVG, an embed snippet, or content from a markdown renderer — use `UnsafeHTML`:
 ```swift
-let 
 UnsafeHTML("<script>alert('Hey!')</script>")
 // <script>alert('Hey!')</script>
 ```
 
 ## Rendering
 
-Use `.render()` to return `String`:
+Use `.render()` to return a `String`:
 ```swift
 let html = HomePage().render()
 ```
