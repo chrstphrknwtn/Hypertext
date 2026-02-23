@@ -36,7 +36,9 @@ Then add it as a dependency to your target:
 - macOS, Linux
 
 ## `HTMLComponent` and `HTMLPage`
-Hypertext provides two protocols. `HTMLComponent` is the building block for reusable pieces of HTML. `HTMLPage` extends it for full documents you can send as HTTP responses.
+Hypertext provides two protocols.
+- `HTMLComponent` is the building block for reusable pieces of HTML.
+- `HTMLPage` extends it for full documents you can send as HTTP responses.
 
 ### HTMLComponent
 
