@@ -36,6 +36,8 @@ public struct HTMLRenderer: Sendable {
     }
 
     private static func renderAttributes(_ attributes: [Attribute]) -> String {
+        let attributes = Attribute.mergeClasses(attributes)
+
         let attributesString = attributes.compactMap { attribute in
             if let stringValue = attribute.value.stringValue {
                 return "\(attribute.name)=\"\(self.escapeHTML(stringValue))\""
