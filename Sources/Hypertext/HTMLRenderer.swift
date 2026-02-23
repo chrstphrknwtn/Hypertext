@@ -61,7 +61,6 @@ public struct HTMLRenderer: Sendable {
             case ">": result += "&gt;"
             case "\"": result += "&quot;"
             case "'": result += "&#39;"
-            case "/": result += "&#x2F;"
             default: result.append(char)
             }
         }
