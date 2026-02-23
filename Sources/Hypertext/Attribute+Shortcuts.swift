@@ -41,6 +41,13 @@ public extension Attribute {
             }
         }
 
+        // If .class() is present and only includes conditionals that all
+        // are false, do not add an empty class="" to the element.
+        // Falsey attributes are omitted by the renderer.
+        if classes.isEmpty {
+            return .init("class", .bool(false))
+        }
+
         return .init("class", .string(classes.joined(separator: " ")))
     }
 

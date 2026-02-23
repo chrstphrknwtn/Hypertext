@@ -18,7 +18,7 @@ If you know HTML, you know Hypertext.
 Add Hypertext to your `Package.swift`:
 ```swift
 dependencies: [
-	.package(url: "https://github.com/chrstphrknwtn/Hypertext.git", from: "0.1.1")
+	.package(url: "https://github.com/chrstphrknwtn/Hypertext.git", from: "0.1.2")
 ]
 ```
 

@@ -22,7 +22,7 @@ enum NodeTests {
         @Test("Escapes angle brackets")
         func escapesAngleBrackets() {
             let node = Node.text("<script>alert('xss')</script>")
-            #expect(html.render(node) == "&lt;script&gt;alert('xss')&lt;/script&gt;")
+            #expect(html.render(node) == "&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;")
         }
 
         @Test("Escapes double quotes")
@@ -104,7 +104,7 @@ enum NodeTests {
         }
     }
 
-    @Suite("Attributes")
+    @Suite("Render Attributes")
     struct Attributes {
         @Test("String attribute renders as key-value")
         func stringAttribute() {
@@ -170,6 +170,57 @@ enum NodeTests {
                 .element("p", [], [.text("world")]),
             ])
             #expect(html.render(node) == "<p>hello</p> <p>world</p>")
+        }
+    }
+
+    @Suite("Class Merging")
+    struct ClassMerging {
+        @Test("Single class attribute unchanged")
+        func singleClassUnchanged() {
+            let node = Node.element("div", [.class("container")], [])
+            #expect(html.render(node) == "<div class=\"container\"></div>")
+        }
+
+        @Test("No class attributes returns unchanged")
+        func noClasses() {
+            let node = Node.element("div", [.id("main"), .hidden()], [])
+            #expect(html.render(node) == "<div id=\"main\" hidden></div>")
+        }
+
+        @Test("Multiple class attributes merge into one")
+        func multipleClassesMerge() {
+            let node = Node.element("div", [.class("card"), .class("highlighted")], [])
+            #expect(html.render(node) == "<div class=\"card highlighted\"></div>")
+        }
+
+        @Test("Merged class preserves position of first")
+        func mergePreservesPosition() {
+            let node = Node.element("div", [.id("main"), .class("card"), .hidden(), .class("wide")], [])
+            #expect(html.render(node) == "<div id=\"main\" class=\"card wide\" hidden></div>")
+        }
+
+        @Test("Other attribute order is preserved")
+        func otherAttributeOrderPreserved() {
+            let node = Node.element("div", [.id("a"), .class("x"), .data("foo", "bar"), .class("y"), .hidden()], [])
+            #expect(html.render(node) == "<div id=\"a\" class=\"x y\" data-foo=\"bar\" hidden></div>")
+        }
+
+        @Test("Conditional class merging includes truthy values")
+        func conditionalMerging() {
+            let node = Node.element("div", [.class("card"), .class(["highlighted": true, "dimmed": false])], [])
+            #expect(html.render(node) == "<div class=\"card highlighted\"></div>")
+        }
+
+        @Test("All-false conditional class is omitted from merge")
+        func allFalseConditionalMerge() {
+            let node = Node.element("div", [.class("card"), .class(["active": false])], [])
+            #expect(html.render(node) == "<div class=\"card\"></div>")
+        }
+
+        @Test("All-false conditional as only class omits attribute")
+        func allFalseOnlyClass() {
+            let node = Node.element("div", [.id("main"), .class(["active": false])], [])
+            #expect(html.render(node) == "<div id=\"main\"></div>")
         }
     }
 }
