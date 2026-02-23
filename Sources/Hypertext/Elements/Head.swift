@@ -2,7 +2,7 @@
 ///
 /// ```swift
 /// Head {
-///     Title("My Site")
+///     Title { "My Site" }
 ///     Meta(charset: "utf-8")
 /// }
 /// ```

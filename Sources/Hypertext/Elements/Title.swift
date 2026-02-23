@@ -1,7 +1,7 @@
 /// Creates a `<title>` element.
 ///
 /// ```swift
-/// Title("My Website")
+/// Title { "My Website" }
 /// ```
 /// ```html
 /// <title>My Website</title>
@@ -11,6 +11,6 @@
 /// - Returns: A `<title>` element node.
 ///
 /// [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title)
-public func Title(_ text: String) -> Node {
-    .element("title", [], [.text(text)])
+public func Title(attributes: Attribute..., @HTMLBuilder content: () -> Node) -> Node {
+    .element("title", attributes, [content()])
 }

@@ -33,7 +33,7 @@ public extension HTMLPage {
         Doctype()
         Html {
             Head {
-                Title(title)
+                Title { title }
                 head
             }
             Body {
