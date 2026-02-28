@@ -1,7 +1,7 @@
 /// Combines multiple `class` attributes into a single attribute.
 ///
-/// When an element has more than one `class` attribute — for example,
-/// one from a component and one from the call site — this method
+/// When an element has more than one `class` attribute, for example,
+/// one from a component and one from the call site, this method
 /// merges their values into a single space-separated string.
 ///
 /// The merged attribute is placed at the position of the first

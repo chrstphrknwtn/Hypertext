@@ -123,7 +123,7 @@ Div(.class("card"), .id("main"), .data("active", "true"), .class(["highlighted":
 ```
 
 ## Style and Script
-`Style` and `Script` render their content as raw text — no HTML escaping — so CSS and JavaScript work as expected:
+`Style` and `Script` render their content as raw text with no HTML escaping. CSS and JavaScript work as expected:
 
 ```swift
 Style { "body { margin: 0; }" }
@@ -140,7 +140,7 @@ Script(src: "/app.js", .defer(), .async())
 
 ## Raw HTML
 
-Hypertext escapes all text content by default. When you need to pass through a raw HTML string — like an SVG, an embed snippet, or content from a markdown renderer — use `UnsafeHTML`:
+Hypertext escapes text content by default. When you need to pass through a raw HTML string, use `UnsafeHTML`. Useful for SVG or content from a markdown renderer.
 ```swift
 UnsafeHTML("<script>alert('Hey!')</script>")
 // <script>alert('Hey!')</script>

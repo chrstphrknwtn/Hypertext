@@ -2,7 +2,7 @@
 ///
 /// Conform to `HTMLPage` to create full documents. The doctype and
 /// `<meta charset="utf-8">` are included automatically. Only ``body``
-/// is required — ``head`` defaults to empty.
+/// is required, ``head`` defaults to empty.
 ///
 /// ```swift
 /// struct HomePage: HTMLPage {
