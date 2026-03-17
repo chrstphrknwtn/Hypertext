@@ -1,5 +1,6 @@
 public enum Node: Sendable {
     case doctype
+    case comment(String)
     case element(String, [Attribute], [Node])
     case voidElement(String, [Attribute])
     case text(String)

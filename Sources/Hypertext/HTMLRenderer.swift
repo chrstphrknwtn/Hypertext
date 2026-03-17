@@ -9,6 +9,9 @@ public struct HTMLRenderer: Sendable {
         switch node {
         case .doctype:
             return "<!DOCTYPE html>"
+        case let .comment(text):
+            let escapedText = Self.escapeComment(text)
+            return "<!-- \(escapedText) -->"
         case let .element(tag, attributes, nodes):
             let attributesString = Self.renderAttributes(attributes)
             let innerHTML = nodes.map { node in
@@ -62,6 +65,26 @@ public struct HTMLRenderer: Sendable {
             case "\"": result += "&quot;"
             case "'": result += "&#39;"
             default: result.append(char)
+            }
+        }
+        return result
+    }
+
+    private static func escapeComment(_ string: String) -> String {
+        var result = ""
+        result.reserveCapacity(string.count)
+        var precedingHyphen = false
+        for char in string {
+            if char == "-" {
+                if precedingHyphen {
+                    result.append(" -")
+                } else {
+                    result.append(char)
+                    precedingHyphen = true
+                }
+            } else {
+                result.append(char)
+                precedingHyphen = false
             }
         }
         return result

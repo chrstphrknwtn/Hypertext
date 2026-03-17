@@ -104,6 +104,27 @@ enum NodeTests {
         }
     }
 
+    @Suite("Comments")
+    struct Comments {
+        @Test("Renders a comment")
+        func rendersComment() {
+            let node = Node.comment("Hello")
+            #expect(html.render(node) == "<!-- Hello -->")
+        }
+
+        @Test("Renders comments in XML")
+        func rendersXmlComment() {
+            let node = Node.comment("Hello")
+            #expect(xml.render(node) == "<!-- Hello -->")
+        }
+
+        @Test("Renders comments with escaped text")
+        func escapesCommentText() {
+            let node = Node.comment("Hello -->")
+            #expect(xml.render(node) == "<!-- Hello - -> -->")
+        }
+    }
+
     @Suite("Render Attributes")
     struct Attributes {
         @Test("String attribute renders as key-value")
