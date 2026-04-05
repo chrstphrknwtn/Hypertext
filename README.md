@@ -71,6 +71,8 @@ struct NavBar: HTMLComponent {
 
 ```swift
 struct HomePage: HTMLPage {
+	var lang: String? { "en" }
+
 	var head: Node {
 		Title { "My webpage!" }
 		Link(rel: "stylesheet", href: "/styles.css")
@@ -79,6 +81,24 @@ struct HomePage: HTMLPage {
 	var body: Node {
 		NavBar()
 		H1 { "Welcome to my webpage!" }
+	}
+}
+```
+
+Alternatively you can construct your own HTML document:
+
+```swift
+struct HomePage: HTMLComponent {
+	var content: Node {
+		Doctype()
+		Html(lang: "en") {
+			Head {
+				Meta(charset: "utf-8")
+			}
+			Body {
+				H1 { "Hello, world!" }
+			}
+		}
 	}
 }
 ```

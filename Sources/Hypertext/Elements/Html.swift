@@ -35,6 +35,7 @@ public func Html(_ attributes: Attribute..., @HTMLBuilder content: () -> Node) -
 /// - Returns: An `<html>` element node.
 ///
 /// [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html)
-public func Html(lang: String, _ attributes: Attribute..., @HTMLBuilder content: () -> Node) -> Node {
-    .element("html", [.init("lang", .string(lang))] + attributes, [content()])
+public func Html(lang: String?, _ attributes: Attribute..., @HTMLBuilder content: () -> Node) -> Node {
+    let langAttr: [Attribute] = if let lang { [.init("lang", .string(lang))] } else { [] }
+    return .element("html", langAttr + attributes, [content()])
 }

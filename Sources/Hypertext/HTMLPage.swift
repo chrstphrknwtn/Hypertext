@@ -19,16 +19,18 @@
 ///
 /// - SeeAlso: ``HTMLComponent``
 public protocol HTMLPage: HTMLComponent {
+    var lang: String? { get }
     @HTMLBuilder var head: Node { get }
     @HTMLBuilder var body: Node { get }
 }
 
 public extension HTMLPage {
+    var lang: String? { nil }
     var head: Node { .empty }
 
     @HTMLBuilder var content: Node {
         Doctype()
-        Html {
+        Html(lang: lang) {
             Head {
                 Meta(charset: "utf-8")
                 head
