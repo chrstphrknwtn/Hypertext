@@ -1,18 +1,19 @@
 # Hypertext
 
-A Swift library for writing HTML with a declarative, SwiftUI-like syntax.
+A Swift library for writing HTML in a declarative, SwiftUI-like syntax.
 
 If you know HTML, you know Hypertext.
 
 ## Goals
 
-- Simple API for effortless HTML authoring
-- Long-term API stability
+- Simple API
+- Effortless authoring
 - Zero dependencies
 
 ## Non-goals
 
 - HTML validation
+- CSS awareness
 
 ## Installation
 
